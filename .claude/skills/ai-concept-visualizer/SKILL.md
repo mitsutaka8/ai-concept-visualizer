@@ -41,6 +41,7 @@ description: バイブコーディングの学習中に出会った用語・概�
 
 ### Step 4: ファイルを作る
 
+- `output/` ディレクトリが無ければ作成する
 - `base.html` をリポジトリ直下の `output/{スラッグ}.html` にコピーする
 - `<!-- TITLE -->`（og:title と title の 2 箇所）、`<!-- DESCRIPTION -->`、`<!-- CONTENT_START -->`〜`<!-- CONTENT_END -->` を置換する
 - スラッグは短い英単語にする（例: `env-vars`, `git-commit`）
