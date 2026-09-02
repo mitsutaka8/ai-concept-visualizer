@@ -14,29 +14,27 @@ AI でバイブコーディングを学ぶ過程で出会った未知の用語�
 
 ## 構成
 
+このリポジトリのプロジェクトスキルとして作る（`.claude/skills/` 配下）。
+このリポジトリで作業しているときに `ai-concept-visualizer` として呼び出せる。
+
 ```
-ai-concept-visualizer/
-├── SKILL.md
-├── references/
-│   ├── base.html                 額縁テンプレート（既存スキルからコピー）
-│   ├── model-answer.html         模範回答（用語カルテ型で新規作成）
-│   └── playwright-setup-guide.md 既存スキルからコピー
-├── scripts/
-│   ├── package.json
-│   └── verify-diagram.mjs        既存スキルからコピー
-├── output/                       生成した図解の保存先
-└── .gitignore                    node_modules を除外
+ai-concept-visualizer/                     リポジトリルート
+├── .claude/skills/ai-concept-visualizer/
+│   ├── SKILL.md
+│   ├── references/
+│   │   ├── base.html                 額縁テンプレート（既存スキルからコピー）
+│   │   ├── model-answer.html         模範回答（用語カルテ型で新規作成）
+│   │   └── playwright-setup-guide.md 既存スキルからコピー
+│   └── scripts/
+│       ├── package.json
+│       └── verify-diagram.mjs        既存スキルからコピー
+├── output/                           生成した図解の保存先
+├── docs/                             設計ドキュメント
+└── .gitignore                        node_modules を除外
 ```
 
 `model-answer.html` が実質的な品質基準。AI はここからデザインと情報量を読み取る。
 題材は「環境変数」（8 セクション全部に中身が入り、誤解も多い用語）。
-
-## インストール方法
-
-開発とバージョン管理はこのリポジトリで行い、`~/.claude/skills/ai-concept-visualizer`
-からシンボリックリンクを張って、どのプロジェクトからでも呼び出せるようにする。
-
-生成した図解はこのリポジトリの `output/` に蓄積される。
 
 ## 図解の固定構成（8 セクション）
 
@@ -83,7 +81,7 @@ React / shadcn-ui、絵文字、インタラクティブ要素・アニメーシ
 
 Step 0 前提確認 → Step 1 模範回答の読み込み → Step 2 テンプレート読み込み →
 Step 3 ウェブ検索（2〜3 回）→ Step 4 8 セクションでコンテンツ生成 →
-Step 5 スキルフォルダの `output/{スラッグ}.html` を作成 → Step 6 Playwright 検証
+Step 5 リポジトリ直下の `output/{スラッグ}.html` を作成 → Step 6 Playwright 検証
 （デスクトップ / モバイル、最大 3 回のループ＋スクショ目視 1 回）→ Step 7 完了報告
 
 ## SKILL.md の書き方
