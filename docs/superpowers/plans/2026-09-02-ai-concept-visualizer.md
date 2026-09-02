@@ -1,5 +1,7 @@
 # ai-concept-visualizer スキル 実装計画
 
+> この計画書は実行時点の記録です。図解の正本は `.claude/skills/ai-concept-visualizer/references/model-answer.html` であり、以降の模範回答の変更をこの計画書へ反映する必要はありません。
+
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
 **Goal:** バイブコーディング学習中に出会った用語 1 つを、図中心の「用語カルテ型」8 セクションで図解する HTML を生成するプロジェクトスキルを作る。
@@ -216,7 +218,7 @@ cp .claude/skills/ai-concept-visualizer/references/base.html \
     </div>
   </div>
   <div class="flex flex-wrap justify-center gap-2">
-    <span class="text-sm bg-ads-hover text-ads-muted px-3 py-1.5 rounded-full">APIキー</span>
+    <span class="text-sm bg-ads-hover text-ads-muted px-3 py-1.5 rounded-full">APIキー（外部サービスの合言葉）</span>
     <span class="text-sm bg-ads-hover text-ads-muted px-3 py-1.5 rounded-full">パスワード</span>
     <span class="text-sm bg-ads-hover text-ads-muted px-3 py-1.5 rounded-full">データベースの接続先</span>
   </div>
@@ -254,7 +256,7 @@ cp .claude/skills/ai-concept-visualizer/references/base.html \
       </div>
     </div>
   </div>
-  <p class="text-ads-muted mt-6">APIキー（外部サービスを使うための合言葉）は、他人に使われると料金だけこちらに請求されます。だから外に出す必要があります。</p>
+  <p class="text-ads-muted mt-6">APIキーは、他人に使われると料金だけこちらに請求されます。だから外に出す必要があります。</p>
 </section>
 ```
 
@@ -410,8 +412,8 @@ MSG
         <p class="font-bold text-ads-negative">✗ .env も GitHub にアップする</p>
       </div>
       <div class="p-5">
-        <p class="font-bold text-ads-positive mb-1">✓ .gitignore に書いて除外する</p>
-        <p class="text-sm text-ads-muted">代わりに、値を空にした .env.example を置いて「何を設定すればいいか」だけを共有します。</p>
+        <p class="font-bold text-ads-positive mb-1">✓ .gitignore（Gitに含めないファイルの指定）に書いて除外する</p>
+        <p class="text-sm text-ads-muted">代わりに、値を空にした .env.example（共有用のひな形）を置いて「何を設定すればいいか」だけを共有します。</p>
       </div>
     </div>
   </div>
