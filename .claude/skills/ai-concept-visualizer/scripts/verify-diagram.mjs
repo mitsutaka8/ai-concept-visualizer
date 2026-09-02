@@ -37,7 +37,7 @@ async function loadPlaywright() {
     return await import('playwright');
   } catch {
     console.error('[依存なし] playwright が見つかりません。');
-    console.error('references/playwright-setup-guide.md の手順で導入してください。');
+    console.error('.claude/skills/ai-concept-visualizer/references/playwright-setup-guide.md の手順で導入してください。');
     process.exit(1);
   }
 }
@@ -183,7 +183,7 @@ async function main() {
     browser = await chromium.launch();
   } catch (e) {
     console.error('[ブラウザ未導入] Chromium を起動できませんでした。');
-    console.error('次を実行してください: npx playwright install chromium');
+    console.error('次を実行してください: npx --prefix .claude/skills/ai-concept-visualizer/scripts playwright install chromium');
     console.error(`詳細: ${e.message}`);
     process.exit(1);
   }

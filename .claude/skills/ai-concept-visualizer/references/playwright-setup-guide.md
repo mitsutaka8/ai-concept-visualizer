@@ -9,7 +9,7 @@
 
 ## 導入手順（2コマンド）
 
-スキルの `scripts/` ディレクトリで実行する。
+リポジトリのルートで実行する。
 
 ```bash
 # 1. playwright 本体を入れる（scripts/package.json の依存をインストール）
@@ -18,9 +18,6 @@ npm install --prefix .claude/skills/ai-concept-visualizer/scripts
 # 2. Chromium ブラウザ本体をダウンロードする（初回のみ・約150MB）
 npx --prefix .claude/skills/ai-concept-visualizer/scripts playwright install chromium
 ```
-
-> パスはスキルの設置場所に合わせて読み替える。リポジトリ内で開発中なら
-> `ai-concept-visualizer/scripts` のように相対パスで指定する。
 
 ## よくあるエラーと対応
 

@@ -1,5 +1,7 @@
 # ai-concept-visualizer スキル 実装計画
 
+> この計画書は実行時点の記録です。図解の正本は `.claude/skills/ai-concept-visualizer/references/model-answer.html` であり、以降の模範回答の変更をこの計画書へ反映する必要はありません。
+
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
 **Goal:** バイブコーディング学習中に出会った用語 1 つを、図中心の「用語カルテ型」8 セクションで図解する HTML を生成するプロジェクトスキルを作る。
