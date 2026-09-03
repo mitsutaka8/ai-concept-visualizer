@@ -83,29 +83,40 @@
 </header>
 
 <section class="mb-14 md:mb-20">
-  <div class="flex flex-col md:flex-row items-center justify-center gap-4 md:gap-6 mb-8">
-    <div class="w-full md:w-auto md:flex-1 max-w-xs bg-white border-2 border-ads-accent rounded-xl p-5 text-center">
-      <i data-lucide="file-key" class="w-8 h-8 text-ads-accent mx-auto mb-2"></i>
-      <p class="font-bold text-ads-text">.env ファイル</p>
-      <p class="text-sm text-ads-muted mt-1">秘密の値を書いておく場所</p>
+  <div class="bg-ads-surface border border-ads-border rounded-xl p-5 md:p-6 mb-6">
+    <p class="text-xs font-bold text-ads-dim mb-3">プログラムを動かす環境が持っている「名前と値」の一覧</p>
+    <div class="bg-white border border-ads-border rounded-lg p-4 font-mono text-xs md:text-sm space-y-1 overflow-x-auto">
+      <p class="text-ads-text">API_KEY<span class="text-ads-dim mx-2">=</span><span class="text-ads-accent">sk-abc123456789</span></p>
+      <p class="text-ads-text">DATABASE_URL<span class="text-ads-dim mx-2">=</span><span class="text-ads-accent">postgres://localhost/app</span></p>
     </div>
-    <div class="flex md:flex-col items-center text-ads-dim">
-      <i data-lucide="arrow-right" class="w-6 h-6 hidden md:block"></i>
-      <i data-lucide="arrow-down" class="w-6 h-6 md:hidden"></i>
-      <span class="text-xs ml-2 md:ml-0 md:mt-1">読み込む</span>
+    <div class="flex items-center justify-center gap-2 my-4 text-ads-muted">
+      <i data-lucide="arrow-down" class="w-5 h-5"></i>
+      <span class="text-xs">プログラムは「名前」で取り出す</span>
     </div>
-    <div class="w-full md:w-auto md:flex-1 max-w-xs bg-white border-2 border-ads-border rounded-xl p-5 text-center">
-      <i data-lucide="code-2" class="w-8 h-8 text-ads-muted mx-auto mb-2"></i>
-      <p class="font-bold text-ads-text">プログラム</p>
-      <p class="text-sm text-ads-muted mt-1">値そのものは書かない</p>
+    <div class="bg-white border-2 border-ads-accent rounded-lg p-4 text-center">
+      <p class="font-mono text-xs md:text-sm text-ads-text">process.env.<span class="text-ads-accent font-bold">API_KEY</span></p>
     </div>
   </div>
+
+  <div class="grid md:grid-cols-2 gap-4 mb-6">
+    <div class="border border-ads-border rounded-xl p-5 text-center">
+      <i data-lucide="laptop" class="w-7 h-7 text-ads-muted mx-auto mb-2"></i>
+      <p class="font-bold text-ads-text mb-1">開発中は自分のPC</p>
+      <p class="text-sm text-ads-muted"><span class="font-mono text-xs bg-ads-hover px-1.5 py-0.5 rounded">.env</span> に書いておく</p>
+    </div>
+    <div class="border border-ads-border rounded-xl p-5 text-center">
+      <i data-lucide="cloud" class="w-7 h-7 text-ads-muted mx-auto mb-2"></i>
+      <p class="font-bold text-ads-text mb-1">本番はデプロイ先</p>
+      <p class="text-sm text-ads-muted">管理画面から同じ名前で登録する</p>
+    </div>
+  </div>
+
   <div class="flex flex-wrap justify-center gap-2">
     <span class="text-sm bg-ads-hover text-ads-muted px-3 py-1.5 rounded-full">APIキー（外部サービスの合言葉）</span>
     <span class="text-sm bg-ads-hover text-ads-muted px-3 py-1.5 rounded-full">パスワード</span>
     <span class="text-sm bg-ads-hover text-ads-muted px-3 py-1.5 rounded-full">データベースの接続先</span>
   </div>
-  <p class="text-center text-ads-muted mt-6">ここからひとつずつ見ていきます。</p>
+  <p class="text-center text-ads-muted mt-6"><span class="font-mono text-sm bg-ads-hover px-1.5 py-0.5 rounded">.env</span> は値を置くための一手段であって、環境変数そのものではありません。</p>
 </section>
 
 <section class="mb-14 md:mb-20">
@@ -141,21 +152,25 @@
   <div class="grid md:grid-cols-3 gap-4">
     <div class="bg-ads-surface border border-ads-border rounded-xl p-5">
       <span class="inline-flex items-center justify-center w-7 h-7 rounded-full bg-ads-accent text-white text-sm font-bold mb-3">1</span>
-      <p class="font-bold text-ads-text mb-1">.env に書く</p>
+      <p class="font-bold text-ads-text mb-1">値を用意する</p>
       <p class="font-mono text-xs bg-slate-900 text-slate-100 rounded p-2 overflow-x-auto">API_KEY=sk-abc123</p>
+      <p class="text-sm text-ads-muted mt-2">手元なら .env、本番ならデプロイ先の管理画面</p>
     </div>
-    <div class="bg-ads-surface border border-ads-border rounded-xl p-5">
+    <div class="bg-ads-surface border-2 border-ads-warning rounded-xl p-5">
       <span class="inline-flex items-center justify-center w-7 h-7 rounded-full bg-ads-warning text-white text-sm font-bold mb-3">2</span>
-      <p class="font-bold text-ads-text mb-1">起動時に読み込まれる</p>
-      <p class="text-sm text-ads-muted">プログラムが立ち上がるとき、.env の中身が記憶される</p>
+      <p class="font-bold text-ads-text mb-1">読み込み役が環境変数に入れる</p>
+      <p class="font-mono text-xs bg-slate-900 text-slate-100 rounded p-2 overflow-x-auto">node --env-file=.env app.js</p>
+      <p class="text-sm text-ads-muted mt-2">.env は放っておいても読まれない。ここが抜けやすい</p>
     </div>
     <div class="bg-ads-surface border border-ads-border rounded-xl p-5">
       <span class="inline-flex items-center justify-center w-7 h-7 rounded-full bg-ads-positive text-white text-sm font-bold mb-3">3</span>
       <p class="font-bold text-ads-text mb-1">名前で呼び出す</p>
       <p class="font-mono text-xs bg-slate-900 text-slate-100 rounded p-2 overflow-x-auto">process.env.API_KEY</p>
+      <p class="text-sm text-ads-muted mt-2">値そのものはコードに出てこない</p>
     </div>
   </div>
-  <p class="text-ads-muted mt-6">値そのものではなく「API_KEY という名前」でやり取りするのがポイントです。名前だけならコードに書いても安全です。</p>
+  <p class="text-ads-muted mt-6">2 の読み込み役は、Node.js 20.6 以降なら <span class="font-mono text-sm">--env-file</span>、それ以外は dotenv（.env を読み込むパッケージ）が担います。本番では管理画面に登録した値が最初から環境変数として入るため、2 は不要です。</p>
+  <p class="text-xs text-ads-dim mt-4">出典: <a href="https://nodejs.org/api/cli.html#--env-filefile" class="underline">nodejs.org/api/cli.html</a>（2026年9月時点）</p>
 </section>
 
 <section class="mb-14 md:mb-20">
@@ -206,7 +221,23 @@
     </div>
   </div>
 
-  <p class="text-ads-muted mt-6">AI が書いたコードは「値を入れる場所」だけを用意します。中身を入れるのは自分の仕事です。このエラーが出たら、.env ファイルを作れば動き出します。</p>
+  <div class="rounded-xl overflow-hidden border border-ads-border mt-4">
+    <div class="bg-ads-hover px-4 py-2 flex items-center gap-2">
+      <i data-lucide="cloud" class="w-4 h-4 text-ads-muted"></i>
+      <span class="text-xs text-ads-muted">デプロイ先の管理画面（例: Vercel）</span>
+    </div>
+    <div class="bg-white p-4">
+      <div class="grid grid-cols-2 gap-3 text-xs">
+        <p class="text-ads-dim font-bold">Name</p>
+        <p class="text-ads-dim font-bold">Value</p>
+        <p class="font-mono text-ads-text">API_KEY</p>
+        <p class="font-mono text-ads-text">••••••••••</p>
+      </div>
+      <p class="text-xs text-ads-muted mt-3">.gitignore した .env はデプロイ先に届かない。同じ名前をここに登録する</p>
+    </div>
+  </div>
+
+  <p class="text-ads-muted mt-6">AI が書いたコードは「値を入れる場所」だけを用意します。中身を入れるのは自分の仕事です。エラーの文言は場面によって変わりますが、共通しているのは「値が空のまま先へ進んでしまう」ことです。</p>
 </section>
 
 <section class="mb-14 md:mb-20">
@@ -249,12 +280,39 @@
   </div>
 </section>
 
-<section class="mb-6">
+<section class="mb-14 md:mb-20">
   <h2 class="text-2xl md:text-3xl font-black text-ads-text mb-6">これだけ覚えればOK</h2>
   <div class="bg-ads-surface border-l-4 border-ads-accent rounded-r-xl p-6 space-y-3">
-    <p class="flex gap-3 text-ads-text"><span class="font-black text-ads-accent">1</span><span>見せたくない値は、コードではなく <span class="font-mono text-sm bg-ads-hover px-1.5 py-0.5 rounded">.env</span> に書く</span></p>
-    <p class="flex gap-3 text-ads-text"><span class="font-black text-ads-accent">2</span><span>コードには値ではなく「名前」だけを書く</span></p>
-    <p class="flex gap-3 text-ads-text"><span class="font-black text-ads-accent">3</span><span><span class="font-mono text-sm bg-ads-hover px-1.5 py-0.5 rounded">.env</span> は <span class="font-mono text-sm bg-ads-hover px-1.5 py-0.5 rounded">.gitignore</span> に入れて、絶対に公開しない</span></p>
+    <p class="flex gap-3 text-ads-text"><span class="font-black text-ads-accent">1</span><span>コードには値ではなく「名前」だけを書く</span></p>
+    <p class="flex gap-3 text-ads-text"><span class="font-black text-ads-accent">2</span><span>手元の値は <span class="font-mono text-sm bg-ads-hover px-1.5 py-0.5 rounded">.env</span> に置き、読み込み役に読ませる</span></p>
+    <p class="flex gap-3 text-ads-text"><span class="font-black text-ads-accent">3</span><span><span class="font-mono text-sm bg-ads-hover px-1.5 py-0.5 rounded">.env</span> は公開しない。本番はデプロイ先の管理画面に同じ名前で登録する</span></p>
+  </div>
+</section>
+
+<section class="mb-6">
+  <h2 class="text-2xl md:text-3xl font-black text-ads-text mb-6">次に調べる</h2>
+  <div class="space-y-3">
+    <div class="border border-ads-border rounded-xl p-4 flex gap-4 items-start">
+      <i data-lucide="file-text" class="w-5 h-5 text-ads-accent mt-0.5 shrink-0"></i>
+      <div>
+        <p class="font-bold text-ads-text font-mono text-sm">.env.example</p>
+        <p class="text-sm text-ads-muted mt-1">別のPCやチームで、同じ設定をもう一度そろえるために要る</p>
+      </div>
+    </div>
+    <div class="border border-ads-border rounded-xl p-4 flex gap-4 items-start">
+      <i data-lucide="package" class="w-5 h-5 text-ads-accent mt-0.5 shrink-0"></i>
+      <div>
+        <p class="font-bold text-ads-text font-mono text-sm">dotenv</p>
+        <p class="text-sm text-ads-muted mt-1">読み込み役の代表。Node 以外の言語にも同じ名前のものがある</p>
+      </div>
+    </div>
+    <div class="border border-ads-border rounded-xl p-4 flex gap-4 items-start">
+      <i data-lucide="cloud-upload" class="w-5 h-5 text-ads-accent mt-0.5 shrink-0"></i>
+      <div>
+        <p class="font-bold text-ads-text">デプロイ</p>
+        <p class="text-sm text-ads-muted mt-1">本番で環境変数を登録する場面は、デプロイの手順の中に出てくる</p>
+      </div>
+    </div>
   </div>
 </section>
 

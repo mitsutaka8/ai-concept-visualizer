@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow, noarchive, nosnippet, noimageindex">
+  <meta name="googlebot" content="noindex, nofollow">
+  <meta property="og:title" content="環境変数 — プログラムの外側に置く設定値">
+  <meta property="og:description" content="プログラムの外側に置いておく、人に見せたくない設定値のこと。用語カルテ形式の図解。">
+  <meta property="og:type" content="article">
+  <title>環境変数 — プログラムの外側に置く設定値</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='8' fill='%23F4F1E8'/><rect x='10' y='14' width='80' height='5' fill='%23141210'/><rect x='10' y='24' width='80' height='2' fill='%23141210'/><rect x='10' y='36' width='36' height='30' fill='%23B3261E'/><rect x='52' y='36' width='38' height='4' fill='%23141210'/><rect x='52' y='45' width='38' height='4' fill='%23141210'/><rect x='52' y='54' width='38' height='4' fill='%23141210'/><rect x='10' y='74' width='80' height='4' fill='%23141210'/></svg>">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;500;600;700;900&family=Noto+Sans+JP:wght@400;500;700;900&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            np: {
+              paper: '#F4F1E8',
+              ink: '#141210',
+              sub: '#4A453D',
+              mute: '#7C756B',
+              rule: '#141210',
+              red: '#B3261E',
+              tint: '#E9E4D6',
+            }
+          },
+          fontFamily: {
+            serif: ['"Noto Serif JP"', '"Hiragino Mincho ProN"', '"Yu Mincho"', 'serif'],
+            sans: ['"Noto Sans JP"', '"Hiragino Sans"', '"Yu Gothic UI"', 'sans-serif'],
+            mono: ['"IBM Plex Mono"', 'monospace'],
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    body { background-color: #F4F1E8; }
+    .rule-double { border-top: 3px solid #141210; border-bottom: 1px solid #141210; height: 6px; }
+    .dropcap::first-letter { float: left; font-size: 3.3rem; line-height: .82; padding: .15rem .5rem .1rem 0; font-weight: 900; }
+    @media print {
+      .no-print { display: none !important; }
+      body { background-color: #FFFFFF; }
+      figure, li { break-inside: avoid; }
+      .md\:columns-2 { columns: 2 !important; }
+      .md\:grid-cols-2 { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; }
+      .md\:grid-cols-4 { grid-template-columns: repeat(4, minmax(0, 1fr)) !important; }
+      .md\:grid-cols-\[1fr_auto_1fr\] { grid-template-columns: 1fr auto 1fr !important; }
+      .hidden.md\:block { display: block !important; }
+      .md\:hidden { display: none !important; }
+    }
+  </style>
+</head>
+<body class="font-serif text-np-ink antialiased">
+  <div class="no-print max-w-3xl mx-auto px-5 pt-2 flex justify-end">
+    <button onclick="window.print()" class="font-sans text-[11px] tracking-[0.2em] text-np-mute hover:text-np-red transition-colors cursor-pointer">PDF</button>
+  </div>
+  <main class="max-w-3xl mx-auto px-5 py-10 md:py-14">
+<!-- CONTENT_START -->
+<div class="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1 font-sans text-[11px] tracking-[0.18em] text-np-sub border-b border-np-rule pb-2">
+  <span>用語カルテ</span><span>分野: 開発ツール</span>
+</div>
+
+<header class="pt-8 pb-6 mb-10 border-b-4 border-np-rule">
+  <p class="font-sans text-[11px] md:text-xs tracking-[0.35em] text-np-red font-bold mb-4">ENVIRONMENT VARIABLE</p>
+  <h1 class="text-5xl md:text-7xl font-black tracking-tight leading-none mb-6">環境変数</h1>
+  <p class="text-xl md:text-3xl font-bold leading-snug border-l-8 border-np-red pl-5">
+    プログラムの外側に置いておく、人に見せたくない設定値のこと。
+  </p>
+</header>
+
+<section class="mb-12">
+  <figure class="border border-np-rule bg-np-paper p-5 md:p-7 mb-4">
+    <p class="font-sans text-[10px] tracking-[0.2em] text-np-sub mb-3">実行環境が持っている「名前と値」の一覧</p>
+    <div class="border border-np-rule bg-white p-4 font-mono text-[11px] md:text-xs leading-7 overflow-x-auto">
+      <p>API_KEY<span class="text-np-mute mx-2">=</span><span class="text-np-red font-semibold">sk-abc123456789</span></p>
+      <p>DATABASE_URL<span class="text-np-mute mx-2">=</span><span class="text-np-red font-semibold">postgres://localhost/app</span></p>
+    </div>
+    <p class="font-sans text-[10px] tracking-[0.2em] text-np-red text-center my-4">▼ プログラムは「名前」で取り出す</p>
+    <div class="border-2 border-np-ink bg-np-tint p-4 text-center">
+      <p class="font-mono text-[11px] md:text-xs">process.env.<span class="font-semibold">API_KEY</span></p>
+    </div>
+    <div class="grid md:grid-cols-2 gap-4 mt-6 pt-5 border-t border-dashed border-np-mute/50">
+      <div class="border border-np-rule p-4">
+        <p class="font-sans text-[10px] tracking-[0.2em] text-np-mute mb-2">開発中（自分のPC）</p>
+        <p class="font-bold">.env に書いておく</p>
+      </div>
+      <div class="border border-np-rule p-4">
+        <p class="font-sans text-[10px] tracking-[0.2em] text-np-mute mb-2">本番（デプロイ先）</p>
+        <p class="font-bold">管理画面から同じ名前で登録する</p>
+      </div>
+    </div>
+    <div class="border-t border-dashed border-np-mute/50 mt-5 pt-4">
+      <p class="font-sans text-[10px] tracking-[0.2em] text-np-mute mb-3">環境変数にする値</p>
+      <div class="flex flex-wrap gap-2 font-sans text-xs">
+        <span class="border border-np-ink px-3 py-1">APIキー（外部サービスの合言葉）</span>
+        <span class="border border-np-ink px-3 py-1">パスワード</span>
+        <span class="border border-np-ink px-3 py-1">データベースの接続先</span>
+      </div>
+    </div>
+    <figcaption class="font-sans text-[11px] text-np-sub mt-4 pt-3 border-t border-np-rule">［図1］ 環境変数の正体は、実行環境が持つ「名前と値」の組である。.env はそこへ値を積むための一手段にすぎない。</figcaption>
+  </figure>
+  <p class="dropcap text-[15px] leading-8">秘密の値をコードに書かず、プログラムの外側に置く。これが環境変数の考え方である。ここからひとつずつ見ていく。</p>
+</section>
+
+<section class="mb-12">
+  <p class="font-sans text-[11px] tracking-[0.3em] text-np-red font-bold mb-1">WHY</p>
+  <h2 class="font-sans text-2xl md:text-3xl font-black mb-1">なぜ必要か</h2>
+  <div class="rule-double mb-6"></div>
+  <div class="grid md:grid-cols-2 gap-6">
+    <figure>
+      <p class="font-sans text-xs font-black tracking-widest text-np-red mb-2">［ 従来 ］</p>
+      <p class="text-lg font-bold border-b-2 border-np-ink pb-2 mb-4">コードに直接書く</p>
+      <div class="border border-np-rule bg-white p-4">
+        <p class="font-mono text-[11px] md:text-xs bg-np-ink text-np-paper px-3 py-2 overflow-x-auto">apiKey = "sk-abc123..."</p>
+        <p class="font-sans text-[11px] text-np-sub mt-3">コードをGitHubに上げた瞬間、鍵も一緒に公開される</p>
+      </div>
+      <figcaption class="font-sans text-[11px] text-np-sub mt-2">［図2］ 値がコードの中に居座るため、コードを配ると鍵も配られる。</figcaption>
+    </figure>
+    <figure>
+      <p class="font-sans text-xs font-black tracking-widest text-np-sub mb-2">［ 環境変数 ］</p>
+      <p class="text-lg font-bold border-b-2 border-np-ink pb-2 mb-4">名前だけを書く</p>
+      <div class="border border-np-rule bg-white p-4">
+        <p class="font-mono text-[11px] md:text-xs border border-np-ink px-3 py-2 overflow-x-auto">apiKey = process.env.API_KEY</p>
+        <p class="font-sans text-[11px] text-np-sub mt-3">コードには置き場所だけ。鍵は手元に残る</p>
+      </div>
+      <figcaption class="font-sans text-[11px] text-np-sub mt-2">［図3］ 値の代わりに名前を書く。名前だけなら公開されても困らない。</figcaption>
+    </figure>
+  </div>
+  <p class="text-[15px] leading-8 mt-5">APIキーは、他人に使われると料金だけこちらに請求される。だから外に出す必要がある。</p>
+  <p class="font-sans text-[10px] text-np-mute mt-2">出典: <a href="https://12factor.net/ja/config" class="underline">12factor.net/ja/config</a></p>
+</section>
+
+<section class="mb-12">
+  <p class="font-sans text-[11px] tracking-[0.3em] text-np-red font-bold mb-1">HOW</p>
+  <h2 class="font-sans text-2xl md:text-3xl font-black mb-1">どう動くか</h2>
+  <div class="rule-double mb-6"></div>
+  <figure class="border border-np-rule">
+    <ol class="divide-y divide-np-rule/30">
+      <li class="flex gap-5 p-5">
+        <span class="font-sans text-4xl font-black text-np-red leading-none shrink-0 w-11">一</span>
+        <div class="min-w-0">
+          <p class="text-lg font-bold mb-2">値を用意する</p>
+          <p class="font-mono text-[11px] bg-np-ink text-np-paper px-3 py-1.5 inline-block">API_KEY=sk-abc123</p>
+          <p class="text-sm text-np-sub leading-7 mt-2">手元なら .env、本番ならデプロイ先の管理画面。</p>
+        </div>
+      </li>
+      <li class="flex gap-5 p-5 bg-np-tint">
+        <span class="font-sans text-4xl font-black text-np-red leading-none shrink-0 w-11">二</span>
+        <div class="min-w-0">
+          <p class="text-lg font-bold mb-2">読み込み役が環境変数に入れる</p>
+          <p class="font-mono text-[11px] bg-np-ink text-np-paper px-3 py-1.5 inline-block">node --env-file=.env app.js</p>
+          <p class="text-sm text-np-sub leading-7 mt-2">.env は放っておいても読まれない。ここが抜けやすい。</p>
+        </div>
+      </li>
+      <li class="flex gap-5 p-5">
+        <span class="font-sans text-4xl font-black text-np-red leading-none shrink-0 w-11">三</span>
+        <div class="min-w-0">
+          <p class="text-lg font-bold mb-2">名前で呼び出す</p>
+          <p class="font-mono text-[11px] border border-np-ink px-3 py-1.5 inline-block">process.env.API_KEY</p>
+          <p class="text-sm text-np-sub leading-7 mt-2">値そのものはコードに出てこない。</p>
+        </div>
+      </li>
+    </ol>
+    <figcaption class="font-sans text-[11px] text-np-sub p-4 border-t border-np-rule">［図4］ 二の段を忘れると、.env を作ったのに値が空のままになる。</figcaption>
+  </figure>
+  <p class="text-[15px] leading-8 mt-5">読み込み役は、Node.js 20.6 以降なら <span class="font-mono text-sm">--env-file</span>、それ以外は dotenv（.env を読み込むパッケージ）が担う。本番では管理画面の値が最初から環境変数として入るため、二の段は要らない。</p>
+  <p class="font-sans text-[10px] text-np-mute mt-2">出典: <a href="https://nodejs.org/api/cli.html#--env-filefile" class="underline">nodejs.org/api/cli.html</a>（2026年9月時点）</p>
+</section>
+
+<section class="mb-12">
+  <p class="font-sans text-[11px] tracking-[0.3em] text-np-red font-bold mb-1">ON SITE</p>
+  <h2 class="font-sans text-2xl md:text-3xl font-black mb-1">制作現場から</h2>
+  <div class="rule-double mb-6"></div>
+
+  <figure class="border border-np-rule p-5 mb-6">
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-x-3 gap-y-5">
+      <div class="border-l-2 border-np-mute/40 pl-3">
+        <p class="font-sans text-[10px] tracking-widest text-np-mute mb-1">14:00</p>
+        <p class="text-sm leading-6">AIに天気APIを使いたいと頼む</p>
+      </div>
+      <div class="border-l-2 border-np-mute/40 pl-3">
+        <p class="font-sans text-[10px] tracking-widest text-np-mute mb-1">14:03</p>
+        <p class="text-sm leading-6">コードができあがる</p>
+      </div>
+      <div class="border-l-4 border-np-red pl-3 bg-np-tint -my-2 py-2">
+        <p class="font-sans text-[10px] tracking-widest text-np-red font-bold mb-1">14:05 ここで登場</p>
+        <p class="text-sm leading-6 font-bold">「環境変数に設定を」と言われる</p>
+      </div>
+      <div class="border-l-2 border-np-mute/40 pl-3">
+        <p class="font-sans text-[10px] tracking-widest text-np-mute mb-1">14:08</p>
+        <p class="text-sm leading-6">.env を作ると動き出す</p>
+      </div>
+    </div>
+    <figcaption class="font-sans text-[11px] text-np-sub mt-5 pt-3 border-t border-np-rule">［図5］ 環境変数が顔を出すのは、コードができた直後である。</figcaption>
+  </figure>
+
+  <figure class="mb-6">
+    <div class="border border-np-rule bg-np-ink p-4 font-mono text-[11px] md:text-xs leading-6 overflow-x-auto">
+      <p class="text-np-paper/60">$ npm run dev</p>
+      <p class="text-np-paper mt-2">Error: API_KEY is not defined</p>
+    </div>
+    <figcaption class="font-sans text-[11px] text-np-sub mt-2">［図6］ ターミナルの画面。「API_KEY という環境変数が見つからない」という意味。</figcaption>
+  </figure>
+
+  <figure>
+    <div class="border border-np-rule bg-white">
+      <p class="font-sans text-[10px] tracking-widest text-np-sub border-b border-np-rule px-4 py-2">エディタ &mdash; .env</p>
+      <div class="p-4 font-mono text-[11px] md:text-xs leading-6 overflow-x-auto">
+        <p>API_KEY=<span class="text-np-red font-semibold">sk-abc123456789</span></p>
+      </div>
+    </div>
+    <figcaption class="font-sans text-[11px] text-np-sub mt-2">［図7］ 自分で作るのはこの1行だけ。ここに値を入れるとエラーが消える。</figcaption>
+  </figure>
+
+  <figure class="mt-6">
+    <div class="border border-np-rule bg-white">
+      <p class="font-sans text-[10px] tracking-widest text-np-sub border-b border-np-rule px-4 py-2">デプロイ先の管理画面（例: Vercel）</p>
+      <div class="p-4">
+        <div class="grid grid-cols-2 gap-3 font-sans text-[11px]">
+          <p class="text-np-mute font-bold">Name</p>
+          <p class="text-np-mute font-bold">Value</p>
+          <p class="font-mono">API_KEY</p>
+          <p class="font-mono">••••••••••</p>
+        </div>
+      </div>
+    </div>
+    <figcaption class="font-sans text-[11px] text-np-sub mt-2">［図8］ .gitignore した .env はデプロイ先に届かない。同じ名前をここに登録する。</figcaption>
+  </figure>
+
+  <p class="text-[15px] leading-8 mt-5">AIが書いたコードは「値を入れる場所」だけを用意する。中身を入れるのは自分の仕事である。エラーの文言は場面によって変わるが、共通しているのは「値が空のまま先へ進む」ことだ。</p>
+</section>
+
+<section class="mb-12">
+  <p class="font-sans text-[11px] tracking-[0.3em] text-np-red font-bold mb-1">CORRECTION</p>
+  <h2 class="font-sans text-2xl md:text-3xl font-black mb-1">訂正 &mdash; よくある勘違い</h2>
+  <div class="rule-double mb-6"></div>
+  <div class="space-y-4">
+    <div class="border border-np-rule">
+      <div class="flex gap-4 p-4 bg-np-tint border-b border-np-rule">
+        <span class="font-sans text-xs font-black text-np-red border border-np-red px-2 py-0.5 h-fit shrink-0">誤</span>
+        <p class="font-bold">.env に書けば暗号化されて安全</p>
+      </div>
+      <div class="flex gap-4 p-4">
+        <span class="font-sans text-xs font-black text-np-ink border border-np-ink px-2 py-0.5 h-fit shrink-0">正</span>
+        <div>
+          <p class="font-bold mb-1">ただのテキストファイル。誰でも中身を読める</p>
+          <p class="text-sm text-np-sub leading-7">安全なのは暗号化されているからではなく、Git（変更履歴を記録するツール）に含めず手元に留めるからである。</p>
+        </div>
+      </div>
+    </div>
+    <div class="border border-np-rule">
+      <div class="flex gap-4 p-4 bg-np-tint border-b border-np-rule">
+        <span class="font-sans text-xs font-black text-np-red border border-np-red px-2 py-0.5 h-fit shrink-0">誤</span>
+        <p class="font-bold">.env も GitHub にアップする</p>
+      </div>
+      <div class="flex gap-4 p-4">
+        <span class="font-sans text-xs font-black text-np-ink border border-np-ink px-2 py-0.5 h-fit shrink-0">正</span>
+        <div>
+          <p class="font-bold mb-1">.gitignore（Gitに含めないファイルの指定）に書いて除外する</p>
+          <p class="text-sm text-np-sub leading-7">代わりに、値を空にした .env.example（共有用のひな形）を置いて「何を設定すればいいか」だけを共有する。</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="mb-12">
+  <p class="font-sans text-[11px] tracking-[0.3em] text-np-red font-bold mb-1">PROMPT</p>
+  <h2 class="font-sans text-2xl md:text-3xl font-black mb-1">AIへの伝え方</h2>
+  <div class="rule-double mb-6"></div>
+  <div class="grid md:grid-cols-2 gap-5">
+    <div class="border border-np-mute/50 p-5">
+      <p class="font-sans text-[10px] tracking-[0.2em] text-np-mute mb-3">BEFORE</p>
+      <p class="text-lg leading-8 text-np-sub">「天気APIを使う機能を作って」</p>
+      <p class="font-sans text-xs text-np-red mt-4 pt-3 border-t border-np-mute/30">→ APIキーがコードに直接書かれることがある</p>
+    </div>
+    <div class="border-2 border-np-ink p-5 bg-np-tint">
+      <p class="font-sans text-[10px] tracking-[0.2em] text-np-ink font-bold mb-3">AFTER</p>
+      <p class="text-lg leading-8 font-bold">「天気APIを使う機能を作って。APIキーは環境変数で読み込む形にして、.env.example も用意して」</p>
+      <p class="font-sans text-xs text-np-ink mt-4 pt-3 border-t border-np-ink/30">→ 最初から安全な形で出てくる</p>
+    </div>
+  </div>
+</section>
+
+<section class="mb-12">
+  <p class="font-sans text-[11px] tracking-[0.3em] text-np-red font-bold mb-1">SUMMARY</p>
+  <h2 class="font-sans text-2xl md:text-3xl font-black mb-1">これだけ覚えればOK</h2>
+  <div class="rule-double mb-6"></div>
+  <div class="border-[3px] border-np-ink p-6 md:p-8">
+    <ol class="space-y-4">
+      <li class="flex gap-4 items-baseline"><span class="font-sans text-2xl font-black text-np-red shrink-0">一</span><p class="text-lg md:text-xl font-bold leading-relaxed">コードには値ではなく「名前」だけを書く</p></li>
+      <li class="flex gap-4 items-baseline"><span class="font-sans text-2xl font-black text-np-red shrink-0">二</span><p class="text-lg md:text-xl font-bold leading-relaxed">手元の値は <span class="font-mono text-base">.env</span> に置き、読み込み役に読ませる</p></li>
+      <li class="flex gap-4 items-baseline"><span class="font-sans text-2xl font-black text-np-red shrink-0">三</span><p class="text-lg md:text-xl font-bold leading-relaxed"><span class="font-mono text-base">.env</span> は公開しない。本番は管理画面に同じ名前で登録する</p></li>
+    </ol>
+  </div>
+</section>
+
+<section>
+  <p class="font-sans text-[11px] tracking-[0.3em] text-np-red font-bold mb-1">NEXT</p>
+  <h2 class="font-sans text-2xl md:text-3xl font-black mb-1">次に調べる</h2>
+  <div class="rule-double mb-6"></div>
+  <div class="border border-np-rule divide-y divide-np-rule/30">
+    <div class="p-4">
+      <p class="font-mono text-sm font-semibold mb-1">.env.example</p>
+      <p class="text-sm text-np-sub leading-7">別のPCやチームで、同じ設定をもう一度そろえるために要る。</p>
+    </div>
+    <div class="p-4">
+      <p class="font-mono text-sm font-semibold mb-1">dotenv</p>
+      <p class="text-sm text-np-sub leading-7">読み込み役の代表。Node 以外の言語にも同じ名前のものがある。</p>
+    </div>
+    <div class="p-4">
+      <p class="font-bold text-sm mb-1">デプロイ</p>
+      <p class="text-sm text-np-sub leading-7">本番で環境変数を登録する場面は、デプロイの手順の中に出てくる。</p>
+    </div>
+  </div>
+  <p class="font-sans text-[10px] tracking-[0.2em] text-np-mute mt-6 pt-3 border-t border-np-rule text-right">用語カルテ / 環境変数 / 了</p>
+</section>
+
+<!-- CONTENT_END -->
+  </main>
+</body>
+</html>
