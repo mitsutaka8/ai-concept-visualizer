@@ -5,10 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="robots" content="noindex, nofollow, noarchive, nosnippet, noimageindex">
   <meta name="googlebot" content="noindex, nofollow">
-  <meta property="og:title" content="MCPとは">
-  <meta property="og:description" content="AIとツール・データを共通の規格でつなぐMCPのしくみを、制作の流れに沿って図解します。">
+  <meta property="og:title" content="MCP — AIとツールをつなぐ共通規格">
+  <meta property="og:description" content="AIとツールを、共通のやり方でつなぐための接続規格。用語カルテ形式の図解。">
   <meta property="og:type" content="article">
-  <title>MCPとは</title>
+  <title>MCP — AIとツールをつなぐ共通規格</title>
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%23FFFFFF'/><rect x='8' y='8' width='84' height='84' rx='14' fill='none' stroke='%233B82F6' stroke-width='4'/><circle cx='32' cy='40' r='10' fill='%233B82F6' opacity='0.8'/><circle cx='68' cy='40' r='10' fill='%2360A5FA' opacity='0.8'/><rect x='25' y='62' width='50' height='6' rx='3' fill='%2394A3B8' opacity='0.6'/><rect x='30' y='74' width='40' height='6' rx='3' fill='%2394A3B8' opacity='0.3'/></svg>">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -71,7 +71,6 @@
   </div>
   <main class="max-w-3xl mx-auto px-5 py-10 md:py-16">
 <!-- CONTENT_START -->
-
 <header class="mb-14 md:mb-20">
   <span class="inline-block text-xs font-bold tracking-wider text-ads-accent bg-blue-50 px-3 py-1 rounded-full mb-4">AI連携の規格</span>
   <h1 class="text-3xl md:text-5xl font-black text-ads-text leading-tight mb-5">MCP</h1>
@@ -83,30 +82,30 @@
 </header>
 
 <section class="mb-14 md:mb-20">
-  <div class="flex flex-col md:flex-row items-center justify-center gap-4 md:gap-6 mb-8">
-    <div class="w-full md:w-auto md:flex-1 max-w-xs bg-white border-2 border-ads-accent rounded-xl p-5 text-center">
+  <div class="flex flex-col md:flex-row items-stretch justify-center gap-4 md:gap-6 mb-8">
+    <div class="w-full md:flex-1 bg-white border-2 border-ads-accent rounded-xl p-5 text-center">
       <i data-lucide="message-square" class="w-8 h-8 text-ads-accent mx-auto mb-2"></i>
-      <p class="font-bold text-ads-text">AI（Claude Code など）</p>
-      <p class="text-sm text-ads-muted mt-1">質問や指示を受け取る側</p>
+      <p class="font-bold text-ads-text">AI（MCPクライアント）</p>
+      <p class="text-sm text-ads-muted mt-1">Claude Code など、指示を受け取る側</p>
     </div>
-    <div class="flex md:flex-col items-center text-ads-dim">
+    <div class="flex md:flex-col items-center justify-center text-ads-dim">
       <i data-lucide="arrow-right" class="w-6 h-6 hidden md:block"></i>
       <i data-lucide="arrow-down" class="w-6 h-6 md:hidden"></i>
       <span class="text-xs ml-2 md:ml-0 md:mt-1">MCPで接続</span>
     </div>
-    <div class="w-full md:w-auto md:flex-1 max-w-xs bg-white border-2 border-ads-border rounded-xl p-5 text-center">
+    <div class="w-full md:flex-1 bg-white border-2 border-ads-border rounded-xl p-5 text-center">
       <i data-lucide="server" class="w-8 h-8 text-ads-muted mx-auto mb-2"></i>
       <p class="font-bold text-ads-text">MCPサーバー</p>
-      <p class="text-sm text-ads-muted mt-1">外部ツール側の窓口プログラム</p>
+      <p class="text-sm text-ads-muted mt-1">ツール側の窓口プログラム。多くは自分のPCの中で動く</p>
     </div>
   </div>
   <div class="flex flex-wrap justify-center gap-2">
-    <span class="text-sm bg-ads-hover text-ads-muted px-3 py-1.5 rounded-full">GitHub（コード管理サービス）</span>
-    <span class="text-sm bg-ads-hover text-ads-muted px-3 py-1.5 rounded-full">ファイル操作</span>
-    <span class="text-sm bg-ads-hover text-ads-muted px-3 py-1.5 rounded-full">.mcp.json（接続先を書く設定ファイル）</span>
     <span class="text-sm bg-ads-hover text-ads-muted px-3 py-1.5 rounded-full">Model Context Protocol（MCPの正式名称）</span>
+    <span class="text-sm bg-ads-hover text-ads-muted px-3 py-1.5 rounded-full">.mcp.json（接続先を書く設定ファイル）</span>
+    <span class="text-sm bg-ads-hover text-ads-muted px-3 py-1.5 rounded-full">ブラウザ操作</span>
+    <span class="text-sm bg-ads-hover text-ads-muted px-3 py-1.5 rounded-full">ファイル操作</span>
   </div>
-  <p class="text-center text-ads-muted mt-6">2024年11月にAnthropicが発表した、比較的新しい規格です。ここからひとつずつ見ていきます。</p>
+  <p class="text-center text-ads-muted mt-6">2024年11月にAnthropicが発表した規格です（2026年9月時点）。「サーバー」という名前ですが、遠くの大きなコンピュータではなく、多くは自分のPCで動く小さなプログラムです。</p>
   <p class="text-center text-xs text-ads-dim mt-2">出典: <a href="https://www.anthropic.com/news/model-context-protocol" class="underline">anthropic.com/news/model-context-protocol</a></p>
 </section>
 
@@ -116,11 +115,30 @@
     <div class="border-2 border-red-200 rounded-xl overflow-hidden">
       <div class="bg-red-50 px-5 py-3 flex items-center gap-2">
         <i data-lucide="x-circle" class="w-5 h-5 text-ads-negative"></i>
-        <p class="font-bold text-ads-negative">ツールごとに専用の配線を作る</p>
+        <p class="font-bold text-ads-negative">ツールごとに専用の配線</p>
       </div>
-      <div class="p-5 space-y-3">
-        <p class="font-mono text-xs bg-slate-900 text-slate-100 rounded-lg p-3 overflow-x-auto">AIの種類 × ツールの数 = 組み合わせの数</p>
-        <p class="text-sm text-ads-muted">AIやツールが増えるたび、組み合わせの数だけ連携コードが必要になる</p>
+      <div class="p-5">
+        <svg viewBox="0 0 240 150" class="w-full h-auto" role="img" aria-label="3つのAIと3つのツールを個別につないだ図。線は9本">
+          <line x1="55" y1="30" x2="185" y2="30" stroke="#EF4444" stroke-width="2"/>
+          <line x1="55" y1="30" x2="185" y2="75" stroke="#EF4444" stroke-width="2"/>
+          <line x1="55" y1="30" x2="185" y2="120" stroke="#EF4444" stroke-width="2"/>
+          <line x1="55" y1="75" x2="185" y2="30" stroke="#EF4444" stroke-width="2"/>
+          <line x1="55" y1="75" x2="185" y2="75" stroke="#EF4444" stroke-width="2"/>
+          <line x1="55" y1="75" x2="185" y2="120" stroke="#EF4444" stroke-width="2"/>
+          <line x1="55" y1="120" x2="185" y2="30" stroke="#EF4444" stroke-width="2"/>
+          <line x1="55" y1="120" x2="185" y2="75" stroke="#EF4444" stroke-width="2"/>
+          <line x1="55" y1="120" x2="185" y2="120" stroke="#EF4444" stroke-width="2"/>
+          <circle cx="55" cy="30" r="12" fill="#FFFFFF" stroke="#1E293B" stroke-width="2"/>
+          <circle cx="55" cy="75" r="12" fill="#FFFFFF" stroke="#1E293B" stroke-width="2"/>
+          <circle cx="55" cy="120" r="12" fill="#FFFFFF" stroke="#1E293B" stroke-width="2"/>
+          <circle cx="185" cy="30" r="12" fill="#FFFFFF" stroke="#1E293B" stroke-width="2"/>
+          <circle cx="185" cy="75" r="12" fill="#FFFFFF" stroke="#1E293B" stroke-width="2"/>
+          <circle cx="185" cy="120" r="12" fill="#FFFFFF" stroke="#1E293B" stroke-width="2"/>
+          <text x="20" y="79" font-size="11" font-family="Noto Sans JP, sans-serif" fill="#64748B">AI</text>
+          <text x="205" y="79" font-size="11" font-family="Noto Sans JP, sans-serif" fill="#64748B">ツール</text>
+          <text x="120" y="146" text-anchor="middle" font-size="13" font-weight="700" font-family="Noto Sans JP, sans-serif" fill="#EF4444">9本</text>
+        </svg>
+        <p class="text-sm text-ads-muted mt-2">AI3種 × ツール3種で9本。増えるたびに掛け算で増える</p>
       </div>
     </div>
     <div class="border-2 border-emerald-200 rounded-xl overflow-hidden">
@@ -128,13 +146,30 @@
         <i data-lucide="check-circle-2" class="w-5 h-5 text-ads-positive"></i>
         <p class="font-bold text-ads-positive">MCPという共通規格に合わせる</p>
       </div>
-      <div class="p-5 space-y-3">
-        <p class="font-mono text-xs bg-slate-900 text-slate-100 rounded-lg p-3 overflow-x-auto">AI ⇄ MCP ⇄ ツール</p>
-        <p class="text-sm text-ads-muted">一度MCPに対応すれば、どのAIからでも同じように使える</p>
+      <div class="p-5">
+        <svg viewBox="0 0 240 150" class="w-full h-auto" role="img" aria-label="3つのAIと3つのツールをMCPを中継してつないだ図。線は6本">
+          <line x1="55" y1="30" x2="120" y2="75" stroke="#10B981" stroke-width="2"/>
+          <line x1="55" y1="75" x2="120" y2="75" stroke="#10B981" stroke-width="2"/>
+          <line x1="55" y1="120" x2="120" y2="75" stroke="#10B981" stroke-width="2"/>
+          <line x1="120" y1="75" x2="185" y2="30" stroke="#10B981" stroke-width="2"/>
+          <line x1="120" y1="75" x2="185" y2="75" stroke="#10B981" stroke-width="2"/>
+          <line x1="120" y1="75" x2="185" y2="120" stroke="#10B981" stroke-width="2"/>
+          <circle cx="55" cy="30" r="12" fill="#FFFFFF" stroke="#1E293B" stroke-width="2"/>
+          <circle cx="55" cy="75" r="12" fill="#FFFFFF" stroke="#1E293B" stroke-width="2"/>
+          <circle cx="55" cy="120" r="12" fill="#FFFFFF" stroke="#1E293B" stroke-width="2"/>
+          <circle cx="185" cy="30" r="12" fill="#FFFFFF" stroke="#1E293B" stroke-width="2"/>
+          <circle cx="185" cy="75" r="12" fill="#FFFFFF" stroke="#1E293B" stroke-width="2"/>
+          <circle cx="185" cy="120" r="12" fill="#FFFFFF" stroke="#1E293B" stroke-width="2"/>
+          <circle cx="120" cy="75" r="18" fill="#10B981"/>
+          <text x="120" y="79" text-anchor="middle" font-size="10" font-weight="700" font-family="Noto Sans JP, sans-serif" fill="#FFFFFF">MCP</text>
+          <text x="120" y="146" text-anchor="middle" font-size="13" font-weight="700" font-family="Noto Sans JP, sans-serif" fill="#10B981">6本</text>
+        </svg>
+        <p class="text-sm text-ads-muted mt-2">それぞれがMCPに1本ずつ。足し算で済む</p>
       </div>
     </div>
   </div>
-  <p class="text-ads-muted mt-6">従来はAI側とツール側それぞれで専用の連携コードを書く必要がありました。MCPは話し方を1つに揃えることで、この組み合わせの手間を減らします。</p>
+  <p class="text-ads-muted mt-6">従来はAI側とツール側それぞれで専用の連携コードを書く必要がありました。MCPは話し方を1つに揃えることで、この掛け算を足し算に変えます。</p>
+  <p class="text-xs text-ads-dim mt-4">出典: <a href="https://modelcontextprotocol.io/docs/getting-started/intro" class="underline">modelcontextprotocol.io/docs/getting-started/intro</a></p>
 </section>
 
 <section class="mb-14 md:mb-20">
@@ -142,21 +177,25 @@
   <div class="grid md:grid-cols-3 gap-4">
     <div class="bg-ads-surface border border-ads-border rounded-xl p-5">
       <span class="inline-flex items-center justify-center w-7 h-7 rounded-full bg-ads-accent text-white text-sm font-bold mb-3">1</span>
-      <p class="font-bold text-ads-text mb-1">MCPサーバーを立てる</p>
-      <p class="text-sm text-ads-muted">ツール側に窓口を用意する</p>
+      <p class="font-bold text-ads-text mb-1">公開されているサーバーを登録する</p>
+      <p class="font-mono text-xs bg-slate-900 text-slate-100 rounded p-2 overflow-x-auto">claude mcp add playwright -- npx -y @playwright/mcp@latest</p>
+      <p class="text-sm text-ads-muted mt-2">自分でサーバーを作る必要はない</p>
     </div>
     <div class="bg-ads-surface border border-ads-border rounded-xl p-5">
       <span class="inline-flex items-center justify-center w-7 h-7 rounded-full bg-ads-warning text-white text-sm font-bold mb-3">2</span>
-      <p class="font-bold text-ads-text mb-1">クライアント（AI側の窓口アプリ）が接続する</p>
-      <p class="text-sm text-ads-muted">Claude Code などが、使えるツール一覧を受け取る</p>
+      <p class="font-bold text-ads-text mb-1">つながったか確かめる</p>
+      <p class="font-mono text-xs bg-slate-900 text-slate-100 rounded p-2 overflow-x-auto">claude mcp list</p>
+      <p class="text-sm text-ads-muted mt-2">AI側が、使えるツールの一覧を受け取る</p>
     </div>
     <div class="bg-ads-surface border border-ads-border rounded-xl p-5">
       <span class="inline-flex items-center justify-center w-7 h-7 rounded-full bg-ads-positive text-white text-sm font-bold mb-3">3</span>
       <p class="font-bold text-ads-text mb-1">AIがツールを呼び出す</p>
-      <p class="text-sm text-ads-muted">必要なときだけ、許可を得て実行する</p>
+      <p class="font-mono text-xs border border-ads-border bg-white rounded p-2 overflow-x-auto text-ads-text">browser_navigate を許可しますか？</p>
+      <p class="text-sm text-ads-muted mt-2">初めて呼ぶときは許可を求められる</p>
     </div>
   </div>
   <p class="text-ads-muted mt-6">やり取りの手順をMCPが共通化しているので、サーバーとクライアントの組み合わせが変わっても仕組みは同じです。</p>
+  <p class="text-xs text-ads-dim mt-4">出典: <a href="https://code.claude.com/docs/en/mcp-quickstart" class="underline">code.claude.com/docs/en/mcp-quickstart</a>（2026年9月時点）</p>
 </section>
 
 <section class="mb-14 md:mb-20">
@@ -166,19 +205,19 @@
     <div class="grid grid-cols-2 md:grid-cols-4 gap-x-3 gap-y-4">
       <div class="text-center">
         <i data-lucide="message-square" class="w-6 h-6 text-ads-dim mx-auto mb-2"></i>
-        <p class="text-xs text-ads-muted">GitHubの<br>バグ調査を頼む</p>
+        <p class="text-xs text-ads-muted">AIにログイン画面を<br>作ってもらう</p>
       </div>
       <div class="text-center">
-        <i data-lucide="file-code" class="w-6 h-6 text-ads-dim mx-auto mb-2"></i>
-        <p class="text-xs text-ads-muted">手元のコードだけで<br>的外れな提案が出る</p>
+        <i data-lucide="help-circle" class="w-6 h-6 text-ads-dim mx-auto mb-2"></i>
+        <p class="text-xs text-ads-muted">「本当に動く？」と<br>聞いても確かめられない</p>
       </div>
       <div class="text-center bg-blue-50 rounded-lg py-2 -my-2 ring-2 ring-ads-accent">
         <i data-lucide="plug" class="w-6 h-6 text-ads-accent mx-auto mb-2"></i>
-        <p class="text-xs font-bold text-ads-accent">ここで登場<br>GitHub用MCPサーバーを追加</p>
+        <p class="text-xs font-bold text-ads-accent">ここで登場<br>ブラウザ用MCPサーバーを追加</p>
       </div>
       <div class="text-center">
         <i data-lucide="check-circle-2" class="w-6 h-6 text-ads-dim mx-auto mb-2"></i>
-        <p class="text-xs text-ads-muted">Issue（バグ報告）を見て<br>的確に直る</p>
+        <p class="text-xs text-ads-muted">AIが自分でページを<br>開いて確認する</p>
       </div>
     </div>
   </div>
@@ -191,9 +230,11 @@
       <span class="text-xs text-slate-400 ml-3">ターミナル</span>
     </div>
     <div class="bg-slate-900 p-4 font-mono text-xs md:text-sm overflow-x-auto">
-      <p class="text-slate-400">$ claude mcp add github -- npx -y @modelcontextprotocol/server-github</p>
-      <p class="text-emerald-400 mt-2">Added MCP server "github"</p>
-      <p class="text-slate-500 mt-2">↑ この1行で、AIがGitHubを見に行けるようになる</p>
+      <p class="text-slate-400">$ claude mcp add playwright -- npx -y @playwright/mcp@latest</p>
+      <p class="text-emerald-400 mt-2">Added stdio MCP server playwright</p>
+      <p class="text-slate-400 mt-3">$ claude mcp list</p>
+      <p class="text-emerald-400 mt-2">playwright ✔ Connected</p>
+      <p class="text-slate-500 mt-3">↑ この2行で、AIがブラウザを動かせるようになる</p>
     </div>
   </div>
 
@@ -202,12 +243,20 @@
       <i data-lucide="file-text" class="w-4 h-4 text-ads-muted"></i>
       <span class="text-xs text-ads-muted font-mono">.mcp.json</span>
     </div>
-    <div class="bg-white p-4 font-mono text-xs md:text-sm overflow-x-auto">
-      <p class="text-ads-text">{ "mcpServers": { <span class="text-ads-accent">"github"</span>: { ... } } }</p>
+    <div class="bg-white p-4 font-mono text-xs md:text-sm overflow-x-auto leading-6">
+      <p class="text-ads-text">{</p>
+      <p class="text-ads-text">&nbsp;&nbsp;"mcpServers": {</p>
+      <p class="text-ads-text">&nbsp;&nbsp;&nbsp;&nbsp;<span class="text-ads-accent">"playwright"</span>: {</p>
+      <p class="text-ads-text">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"type": "stdio",</p>
+      <p class="text-ads-text">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"command": "npx",</p>
+      <p class="text-ads-text">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"args": ["-y", "@playwright/mcp@latest"]</p>
+      <p class="text-ads-text">&nbsp;&nbsp;&nbsp;&nbsp;}</p>
+      <p class="text-ads-text">&nbsp;&nbsp;}</p>
+      <p class="text-ads-text">}</p>
     </div>
   </div>
 
-  <p class="text-ads-muted mt-6">AIが書くコードのしくみそのものは変わりません。変わるのは「見える範囲」で、追加したMCPサーバーの分だけ参照できる情報が広がります。</p>
+  <p class="text-ads-muted mt-6">上のコマンドは自分専用の設定に保存されます。この <span class="font-mono text-sm">.mcp.json</span> のようにチームで共有したいときは <span class="font-mono text-sm">--scope project</span> を付けます。AIが書くコードのしくみは変わらず、変わるのは「AIができること」の範囲です。</p>
 </section>
 
 <section class="mb-14 md:mb-20">
@@ -215,11 +264,20 @@
   <div class="space-y-4">
     <div class="border border-ads-border rounded-xl overflow-hidden">
       <div class="bg-red-50 px-5 py-3">
+        <p class="font-bold text-ads-negative">✗ 一覧に出てくるMCPサーバーは、どれも安全</p>
+      </div>
+      <div class="p-5">
+        <p class="font-bold text-ads-positive mb-1">✓ 自分のPCの中でプログラムが動く。提供元を確かめてから入れる</p>
+        <p class="text-sm text-ads-muted">ローカルのMCPサーバーは、AIが呼ぶたびに自分のPCでプログラムを実行します。だからClaude Codeは、他人のリポジトリに書かれた設定を初回に必ず承認させます。</p>
+      </div>
+    </div>
+    <div class="border border-ads-border rounded-xl overflow-hidden">
+      <div class="bg-red-50 px-5 py-3">
         <p class="font-bold text-ads-negative">✗ MCPを追加すればAIが自動で何でもやってくれる</p>
       </div>
       <div class="p-5">
-        <p class="font-bold text-ads-positive mb-1">✓ 実行の前に、多くの場合ユーザーの許可を求められる</p>
-        <p class="text-sm text-ads-muted">ファイル削除など取り返しのつかない操作を、確認なしに実行させないための仕組みです。</p>
+        <p class="font-bold text-ads-positive mb-1">✓ 初めて呼ぶときは許可を求められる</p>
+        <p class="text-sm text-ads-muted">ただし一度許可すると以後は省かれることがあります。何を許可したかは自分で把握しておく必要があります。</p>
       </div>
     </div>
     <div class="border border-ads-border rounded-xl overflow-hidden">
@@ -232,7 +290,7 @@
       </div>
     </div>
   </div>
-  <p class="text-xs text-ads-dim mt-4">出典: <a href="https://modelcontextprotocol.io/docs/getting-started/intro" class="underline">modelcontextprotocol.io/docs/getting-started/intro</a></p>
+  <p class="text-xs text-ads-dim mt-4">出典: <a href="https://code.claude.com/docs/en/mcp-quickstart" class="underline">code.claude.com/docs/en/mcp-quickstart</a>（2026年9月時点）</p>
 </section>
 
 <section class="mb-14 md:mb-20">
@@ -240,23 +298,50 @@
   <div class="grid md:grid-cols-2 gap-4">
     <div class="border border-ads-border rounded-xl p-5 bg-ads-surface">
       <p class="text-xs font-bold text-ads-dim mb-3">BEFORE</p>
-      <p class="text-ads-muted">「GitHubのIssueを見て直して」</p>
-      <p class="text-sm text-ads-negative mt-3">→ AIはGitHubに接続できず、憶測で答える</p>
+      <p class="text-ads-muted">「作ったログイン画面、ちゃんと動くか見て」</p>
+      <p class="text-sm text-ads-negative mt-3">→ AIは画面を開けず、コードから憶測で答える</p>
     </div>
     <div class="border-2 border-ads-accent rounded-xl p-5 bg-white">
       <p class="text-xs font-bold text-ads-accent mb-3">AFTER</p>
-      <p class="text-ads-text font-medium">「GitHub用のMCPサーバーを.mcp.jsonに追加してから、Issueを見て直して」</p>
-      <p class="text-sm text-ads-positive mt-3">→ 実際のIssueの内容を見て答えてくれる</p>
+      <p class="text-ads-text font-medium">「playwright で http://localhost:3000 を開いて、ログインを試して結果を教えて」</p>
+      <p class="text-sm text-ads-positive mt-3">→ 実際にページを開いて、その結果を答える</p>
     </div>
   </div>
 </section>
 
-<section class="mb-6">
+<section class="mb-14 md:mb-20">
   <h2 class="text-2xl md:text-3xl font-black text-ads-text mb-6">これだけ覚えればOK</h2>
   <div class="bg-ads-surface border-l-4 border-ads-accent rounded-r-xl p-6 space-y-3">
     <p class="flex gap-3 text-ads-text"><span class="font-black text-ads-accent">1</span><span>MCPは、AIとツールをつなぐ共通規格</span></p>
-    <p class="flex gap-3 text-ads-text"><span class="font-black text-ads-accent">2</span><span>MCPサーバーを追加した分だけ、AIが使える範囲が広がる</span></p>
-    <p class="flex gap-3 text-ads-text"><span class="font-black text-ads-accent">3</span><span>実際にツールを動かす前には、多くの場合ユーザーの許可が要る</span></p>
+    <p class="flex gap-3 text-ads-text"><span class="font-black text-ads-accent">2</span><span>公開されているサーバーを登録するだけ。自分で作る必要はない</span></p>
+    <p class="flex gap-3 text-ads-text"><span class="font-black text-ads-accent">3</span><span>自分のPCでプログラムが動く。提供元を確かめてから入れる</span></p>
+  </div>
+</section>
+
+<section class="mb-6">
+  <h2 class="text-2xl md:text-3xl font-black text-ads-text mb-6">次に調べる</h2>
+  <div class="space-y-3">
+    <div class="border border-ads-border rounded-xl p-4 flex gap-4 items-start">
+      <i data-lucide="file-json" class="w-5 h-5 text-ads-accent mt-0.5 shrink-0"></i>
+      <div>
+        <p class="font-bold text-ads-text font-mono text-sm">スコープ（local / project / user）</p>
+        <p class="text-sm text-ads-muted mt-1">設定をどこに保存するかの指定。<span class="font-mono text-xs">.mcp.json</span> が作られるかはこれで決まる</p>
+      </div>
+    </div>
+    <div class="border border-ads-border rounded-xl p-4 flex gap-4 items-start">
+      <i data-lucide="coins" class="w-5 h-5 text-ads-accent mt-0.5 shrink-0"></i>
+      <div>
+        <p class="font-bold text-ads-text">トークン</p>
+        <p class="text-sm text-ads-muted mt-1">つないだサーバーの分だけ、毎回の会話に説明文が積まれて消費が増える</p>
+      </div>
+    </div>
+    <div class="border border-ads-border rounded-xl p-4 flex gap-4 items-start">
+      <i data-lucide="shield" class="w-5 h-5 text-ads-accent mt-0.5 shrink-0"></i>
+      <div>
+        <p class="font-bold text-ads-text">プロンプトインジェクション</p>
+        <p class="text-sm text-ads-muted mt-1">外部から取り込んだ文章に、AIへの指示が仕込まれている攻撃</p>
+      </div>
+    </div>
   </div>
 </section>
 
