@@ -53,6 +53,5 @@ MCPって何？図解して
 | `references/model-answer*.html` | 模範回答。図解の品質はここを基準に作られる |
 | `references/base*.html` | 額縁テンプレート。フォントや配色の土台 |
 | `scripts/verify-diagram.mjs` | レイアウト崩れの検証スクリプト |
-| `docs/superpowers/` | 設計書と実装計画（使うだけなら読まなくてよい） |
 
 図解の見た目を変えたいときは `references/model-answer*.html` を直します。
